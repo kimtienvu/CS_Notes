@@ -1,3 +1,3 @@
-# CS_Undergrad_Notes
+# CS_Notes
 
-A compilation of my Computer Science class notes.
+A compilation of my Computer Science class notes + Review materials.
