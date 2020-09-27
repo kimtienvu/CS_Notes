@@ -1,0 +1,90 @@
+CSE 30 ARM Assembly / C Debugging Tips From CSE 30
+--------------------------------------
+
+ARM Common Mistakes
+
+--------------------------------------------------------------------------------------------------------------
+
+func.s: Assembler messages:
+func.s:1: Error: unknown pseudo-op: `.cpu'
+
+	Make sure you're logged into pi-cluster.ucsd.edu
+
+--------------------------------------------------------------------------------------------------------------
+
+Using '\0' as the nul character in assembly as an immediate operand. Instead, use 0 or '\000'.
+	mov	r3, '\0'	@ BAD
+	mov	r3, 0		@ GOOD
+
+--------------------------------------------------------------------------------------------------------------
+
+Forgetting to load a second time when getting the value of a global variable.
+	ldr	r3, =global_var
+	ldr	r3, [r3]			@ or some other kind of load
+
+--------------------------------------------------------------------------------------------------------------
+
+Make sure you are popping the lr back into the pc.
+	push	{fp, lr}
+	/* more instructions */
+	pop	{fp, pc}		@ NOT pop {fp, lr}
+
+--------------------------------------------------------------------------------------------------------------
+
+Make sure you have a .text (and .align 2), especially if you have a .data section before it!
+This will put instructions in the data section.
+
+--------------------------------------------------------------------------------------------------------------
+
+Misspelled or wrong name in .global and/or function_label,
+or forgetting to add a .global declaration for a globally exported symbol.
+
+
+--------------------------------------------------------------------------------------------------------------
+
+Miscalculating FP_OFFSET. After the first push instruction, to set the fp to point to the base of
+saved regs, FP_OFFSET = (# saved regs - 1) * 4
+
+Likewise, forgetting to reset sp to point to the top of the saved registers befor pop'ing
+them in the epilogue.
+
+--------------------------------------------------------------------------------------------------------------
+
+Not keeping sp aligned on an evenly divisible by 8-byte boundary.
+
+--------------------------------------------------------------------------------------------------------------
+
+func.s: Assembler messages:
+Error: internal_relocation (type: OFFSET_IMM) not fixed.
+	Make sure you have []s around your ldr and str instruction second operands.
+	Make sure to have an = symbol before a label or a large immediate constant
+        if you are trying to "mov" a large value into a register
+
+--------------------------------------------------------------------------------------------------------------
+
+Error: garbage following instruction
+	Check your instruction syntax, comments, etc.
+	Check that you have the .syntax unified declaration at the top of your module.
+
+--------------------------------------------------------------------------------------------------------------
+
+func.s:10: Error: invalid constant after fixup
+    - using mov instead of ldr using the equals sign format with a label or large constant > +/-255
+
+	mov	r0, fmt		should be	ldr	r0, =fmt
+
+	mov	r1, 5555	should be	ldr	r1, =5555
+
+    - 2nd source operand a label or large constant > +/-255
+
+	add	r0, r1, 5555	should be	ldr	r2, =5555
+                                                add	r0, r1, r2
+
+--------------------------------------------------------------------------------------------------------------
+
+No dot before .rodata
+.section	rodata		@ BAD
+.section	.rodata		@ CORRECT
+
+
+
