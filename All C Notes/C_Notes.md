@@ -325,7 +325,9 @@ Void method example:
 Main method example:
 `int main() //For zero arguments`
 
-`int main(int argc, char * argv[]) //argc is the number of command line arguments including the name of the program, argv are all the arguments. argv[0] is the name of the program
+`int main(int argc, char * argv[]) //argc is the number of command line arguments including the name of the program, argv are all the arguments. argv[0] is the name of the program`
+
+C functions cannot return an array, but it supports char *. `char * name()`
 
 ## Static keyword
 
