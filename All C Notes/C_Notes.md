@@ -314,7 +314,12 @@ int foo(int num) {
 ```
 
 Void method example:
-`void foo() {/* Do something */};
+`void foo() {/* Do something */};`
+
+Main method example:
+`int main() //For zero arguments`
+
+`int main(int argc, char * argv[]) //argc is the number of command line arguments including the name of the program, argv are all the arguments. argv[0] is the name of the program
 
 ## Static keyword
 
