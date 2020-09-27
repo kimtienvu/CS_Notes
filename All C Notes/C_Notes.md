@@ -74,6 +74,7 @@ Pointers are used for several reasons:
 One of the many types of memory diagrams to visualize the layout:
 
 `int x = 4; // The compiler chooses the location`
+```c
 +----------+-------+
 | Location | Value |
 +----------+-------+
@@ -85,8 +86,10 @@ One of the many types of memory diagrams to visualize the layout:
 +----------+-------+
 | 0x03     |       |
 +----------+-------+
+```
 
 If we create a pointer that points to variable x: `int * ptr = &x;`
+```c
 +----------+-------+
 | Location | Value |
 +----------+-------+
@@ -98,8 +101,10 @@ If we create a pointer that points to variable x: `int * ptr = &x;`
 +----------+-------+
 | 0x03     |       |
 +----------+-------+
+```
  
 What about this one? `int ** ptr2 = &ptr;`
+```c
  +----------+-------+
 | Location | Value |
 +----------+-------+
@@ -111,6 +116,7 @@ What about this one? `int ** ptr2 = &ptr;`
 +----------+-------+
 | 0x03     |  0x02 |
 +----------+-------+
+```
 
 ## Get the values of pointers
 Use the dereference operator (*). Derefences a pointer to the location it points to:
